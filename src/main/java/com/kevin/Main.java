@@ -10,8 +10,8 @@ public class Main {
         DataAnalyser analyser = new DataAnalyser();
 
         try {
-            Map<String, Integer> data = reader.readFile("/data.txt");
-            Map<String, LinkedHashMap<String, Integer>> dataByDate = reader.getEntriesByDate();
+            Map<String, Integer> data = reader.readFile("/data.txt"); // timestamp : numCars
+            Map<String, LinkedHashMap<String, Integer>> dataByDate = reader.getEntriesByDate(); // date : half-hour entries
 
             // Question 1
             int totalCars = analyser.calculateTotalCars(data);
@@ -32,8 +32,11 @@ public class Main {
             }
 
             // Question 4
-
-
+            List<String> quietestNinetyMinPeriod = analyser.findQuietestNinetyMinPeriod(data);
+            System.out.println("\n1.5-hour Period with the Least Cars: ");
+            for (String line : quietestNinetyMinPeriod) {
+                System.out.println(line);
+            }
 
         } catch (FileNotFoundException e) {
             System.err.println("Error reading file: " + e.getMessage());

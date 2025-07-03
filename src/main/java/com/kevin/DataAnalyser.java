@@ -1,16 +1,20 @@
 package com.kevin;
 
+import java.time.Duration;
+import java.time.LocalDateTime;
 import java.util.*;
 
 public class DataAnalyser {
 
-    /** Qn1: Calculate total number of cars seen by the counter */
+    /** Qn1:
+     * Calculate total number of cars seen by the counter */
     public int calculateTotalCars(Map<String, Integer> data) {
         Collection<Integer> values = data.values();
         return values.stream().mapToInt(Integer::intValue).sum();
     }
 
-    /** Qn2: Per day, calculate the total no. of cars seen */
+    /** Qn2:
+     * Per day, calculate the total no. of cars seen */
     public List<String> calculateDailyCount(Map<String, LinkedHashMap<String, Integer>> data) {
         List<String> res = new ArrayList<>();
 
@@ -24,7 +28,8 @@ public class DataAnalyser {
         return res;
     }
 
-    /** Qn 3: Find the top 3 half-hour periods, with the highest no. of cars seen */
+    /** Qn 3:
+     * Find the top 3 half-hour periods, with the highest no. of cars seen */
     public List<String> findTopThreePeriods(Map<String, Integer> data) {
         List<String> res = new ArrayList<>();
 
@@ -36,6 +41,46 @@ public class DataAnalyser {
 
         for (int i=0; i < 3; i++) {
             String str = entries.get(i).getKey() + " " + entries.get(i).getValue();
+            res.add(str);
+        }
+
+        return res;
+    }
+
+    /** Qn 4:
+     * Find the quietest ninety-min period (3 contiguous half-hours).
+     * Uses the fixed-size sliding-window approach */
+    public List<String> findQuietestNinetyMinPeriod(Map<String, Integer> data) {
+        List<String> res = new ArrayList<>();
+
+        int minNumCars = Integer.MAX_VALUE;
+        int bestStart = 0;
+        int bestEnd = 0;
+        List<Map.Entry<String, Integer>> dataEntries = new ArrayList<>(data.entrySet());
+
+        int left = 0;
+        for (int right = 2; right < dataEntries.size(); right++) {
+            LocalDateTime start = LocalDateTime.parse(dataEntries.get(left).getKey());
+            LocalDateTime end = LocalDateTime.parse(dataEntries.get(right).getKey());
+            long timeGap = Duration.between(start, end).getSeconds(); // diff between the two timestamps
+
+            if (timeGap == 3600) { // this time-gap equates to contiguous 90-min period
+                int numCars = 0;
+                for (int i = left; i <= right; i++) {
+                    numCars += dataEntries.get(i).getValue();
+                }
+                if (numCars < minNumCars) {
+                    minNumCars = numCars;
+                    bestStart = left;
+                    bestEnd = right;
+                }
+            }
+            left++;
+        }
+
+        // build the resulting list of strings
+        for (int i = bestStart; i <= bestEnd; i++) {
+            String str = dataEntries.get(i).getKey() + " " + dataEntries.get(i).getValue();
             res.add(str);
         }
 

@@ -17,7 +17,7 @@ public class FileReader {
             return null;
         }
 
-        Map<String, Integer> map = new HashMap<>(); // timestamp : numCars
+        Map<String, Integer> map = new LinkedHashMap<>(); // timestamp : numCars
         try (Scanner sc = new Scanner(inputStream)) {
             while (sc.hasNextLine()) {
                 String line = sc.nextLine();
