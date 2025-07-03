@@ -31,6 +31,7 @@ Finds the 90-minute window (3 consecutive half-hour entries) with the fewest car
 
 ### ⚙️ Requirements  
 * Java 8 or higher
+* Java-compatible IDE
 
 ### 📚 Notes
 * The timestamp format strictly follows ISO 8601 (yyyy-MM-ddTHH:mm:ss) with no timezone.
