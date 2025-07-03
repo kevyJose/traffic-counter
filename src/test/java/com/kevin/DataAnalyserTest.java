@@ -194,10 +194,10 @@ public class DataAnalyserTest {
         Map<String, Integer> data = new LinkedHashMap<>();
         data.put("2023-07-01T06:00:00", 20);
         data.put("2023-07-01T06:30:00", 25);
-        data.put("2023-07-01T07:00:00", 15);  // sum = 60
+        data.put("2023-07-01T07:00:00", 15);
         data.put("2023-07-01T07:30:00", 5);
         data.put("2023-07-01T08:00:00", 5);
-        data.put("2023-07-01T08:30:00", 5);   // sum = 15 (minimum)
+        data.put("2023-07-01T08:30:00", 5);
         data.put("2023-07-01T09:00:00", 50);
 
         List<String> result = analyser.findQuietestNinetyMinPeriod(data);
