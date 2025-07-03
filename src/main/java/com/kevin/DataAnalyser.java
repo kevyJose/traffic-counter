@@ -4,13 +4,27 @@ import java.util.*;
 
 public class DataAnalyser {
 
-    /** Calculate total number of cars seen by the counter */
+    /** Qn1: Calculate total number of cars seen by the counter */
     public int calculateTotalCars(Map<String, Integer> data) {
         Collection<Integer> values = data.values();
         return values.stream().mapToInt(Integer::intValue).sum();
     }
 
-    /** Find the top 3 half-hour periods, with the highest no. of cars seen */
+    /** Qn2: Per day, calculate the total no. of cars seen */
+    public List<String> calculateDailyCount(Map<String, LinkedHashMap<String, Integer>> data) {
+        List<String> res = new ArrayList<>();
+
+        for (String date : data.keySet()) {
+            Collection<Integer> values = data.get(date).values();
+            int sum = values.stream().mapToInt(Integer::intValue).sum();
+            String str = date + " " + sum;
+            res.add(str);
+        }
+
+        return res;
+    }
+
+    /** Qn 3: Find the top 3 half-hour periods, with the highest no. of cars seen */
     public List<String> findTopThreePeriods(Map<String, Integer> data) {
         List<String> res = new ArrayList<>();
 

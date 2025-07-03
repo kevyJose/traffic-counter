@@ -6,6 +6,9 @@ import java.util.*;
 
 public class FileReader {
 
+    private final Map<String, LinkedHashMap<String, Integer>> entriesByDate = new HashMap<>(); // date : half-hour entries
+
+
     public Map<String, Integer> readFile(String filepath) throws FileNotFoundException {
         InputStream inputStream = FileReader.class.getResourceAsStream(filepath);
 
@@ -14,23 +17,32 @@ public class FileReader {
             return null;
         }
 
-        Set<String> dates = new HashSet<>();
         Map<String, Integer> map = new HashMap<>(); // timestamp : numCars
         try (Scanner sc = new Scanner(inputStream)) {
             while (sc.hasNextLine()) {
                 String line = sc.nextLine();
-                String date = line.substring(0, 10);
+                // all entries
                 String timestamp = line.substring(0, 19); //test: check the stamp
                 int numCars = Integer.parseInt(line.substring(20));
                 map.put(timestamp, numCars);
-                dates.add(date);
+
+                // entries by date
+                String date = line.substring(0, 10);
+                if (! entriesByDate.containsKey(date)) {
+                    entriesByDate.put(date, new LinkedHashMap<String, Integer>());
+                    entriesByDate.get(date).put(timestamp, numCars);
+                } else {
+                    entriesByDate.get(date).put(timestamp, numCars);
+                }
             }
         }
-
         return map;
     }
 
-
+    /** Returns the data entries, grouped by date (a map of maps) */
+    public Map<String, LinkedHashMap<String, Integer>> getEntriesByDate() {
+        return entriesByDate;
+    }
 
 
 }
