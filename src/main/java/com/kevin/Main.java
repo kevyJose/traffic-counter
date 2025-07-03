@@ -15,7 +15,7 @@ public class Main {
 
             // Question 1
             int totalCars = analyser.calculateTotalCars(data);
-            System.out.println("\nTotal Num. of Cars: " + totalCars);
+            System.out.println("\nTotal Number of Cars: " + totalCars);
 
             // Question 2
             List<String> dailyCount = analyser.calculateDailyCount(dataByDate);
