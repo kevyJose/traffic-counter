@@ -9,6 +9,10 @@ public class DataAnalyser {
     /** Qn1:
      * Calculate total number of cars seen by the counter */
     public int calculateTotalCars(Map<String, Integer> data) {
+        if (data == null) {
+            throw new IllegalArgumentException("Input data must not be null.");
+        }
+
         Collection<Integer> values = data.values();
         return values.stream().mapToInt(Integer::intValue).sum();
     }
@@ -57,6 +61,10 @@ public class DataAnalyser {
         int bestStart = 0;
         int bestEnd = 0;
         List<Map.Entry<String, Integer>> dataEntries = new ArrayList<>(data.entrySet());
+
+        if (dataEntries.size() < 3) {
+            return res;
+        }
 
         int left = 0;
         for (int right = 2; right < dataEntries.size(); right++) {
