@@ -1,5 +1,7 @@
 ## Traffic Data Analyser  
 
+**Author:** Kevin Jose
+
 ### Description  
 A Java program to analyse traffic data collected in half-hour intervals. The program processes a dataset of timestamps and vehicle counts to produce various insights, such as daily totals, peak traffic periods, and the quietest 90-minute windows.  
 
