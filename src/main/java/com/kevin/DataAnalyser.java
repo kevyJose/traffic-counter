@@ -40,9 +40,10 @@ public class DataAnalyser {
         // get entries as a list
         List<Map.Entry<String, Integer>> entries = new ArrayList<>(data.entrySet());
 
-        // sort list by value, descending (most no. of cars seen first)
+        // sort list by values, descending (most no. of cars seen first)
         entries.sort(Map.Entry.<String, Integer>comparingByValue().reversed());
 
+        // extract the top three entries from sorted list
         for (int i=0; i < 3; i++) {
             String str = entries.get(i).getKey() + " " + entries.get(i).getValue();
             res.add(str);
@@ -52,7 +53,7 @@ public class DataAnalyser {
     }
 
     /** Qn 4:
-     * Find the quietest ninety-min period (3 contiguous half-hours).
+     * Find the quietest 90-min period (3 contiguous half-hours).
      * Uses the fixed-size sliding-window approach */
     public List<String> findQuietestNinetyMinPeriod(Map<String, Integer> data) {
         List<String> res = new ArrayList<>();
@@ -62,10 +63,12 @@ public class DataAnalyser {
         int bestEnd = 0;
         List<Map.Entry<String, Integer>> dataEntries = new ArrayList<>(data.entrySet());
 
+        // edge-case: cannot proceed if less than 3 entries
         if (dataEntries.size() < 3) {
             return res;
         }
 
+        // sliding-window approach to find the optimal 90-min window
         int left = 0;
         for (int right = 2; right < dataEntries.size(); right++) {
             LocalDateTime start = LocalDateTime.parse(dataEntries.get(left).getKey());
@@ -77,6 +80,7 @@ public class DataAnalyser {
                 for (int i = left; i <= right; i++) {
                     numCars += dataEntries.get(i).getValue();
                 }
+                //update optimal window
                 if (numCars < minNumCars) {
                     minNumCars = numCars;
                     bestStart = left;
@@ -86,7 +90,7 @@ public class DataAnalyser {
             left++;
         }
 
-        // build the resulting list of strings
+        // build the resulting list of strings, based on optimal window
         for (int i = bestStart; i <= bestEnd; i++) {
             String str = dataEntries.get(i).getKey() + " " + dataEntries.get(i).getValue();
             res.add(str);

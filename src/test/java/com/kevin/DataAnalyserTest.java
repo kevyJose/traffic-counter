@@ -8,7 +8,7 @@ public class DataAnalyserTest {
 
     private final DataAnalyser analyser = new DataAnalyser();
 
-    ///  QUESTION 1
+    //  QUESTION 1
     /**
      * Normal-case */
     @Test
@@ -21,6 +21,7 @@ public class DataAnalyserTest {
         int total = analyser.calculateTotalCars(data);
         assertEquals(60, total);
     }
+
 
     /**
      * - Added in "seconds" values
@@ -39,6 +40,7 @@ public class DataAnalyserTest {
         assertEquals(105, total);
     }
 
+
     /**
      * Edge-case: empty-map  */
     @Test
@@ -48,6 +50,7 @@ public class DataAnalyserTest {
         int total = analyser.calculateTotalCars(data);
         assertEquals(0, total);
     }
+
 
     /**
      * Edge-case: data is null
@@ -64,7 +67,7 @@ public class DataAnalyserTest {
     }
 
 
-    /// QUESTION 2
+    // QUESTION 2
     /**
      * Normal case: with multiple days and values */
     @Test
@@ -87,6 +90,7 @@ public class DataAnalyserTest {
         assertEquals(expected, result);
     }
 
+
     /**
      * Single day with multiple entries */
     @Test
@@ -106,6 +110,7 @@ public class DataAnalyserTest {
         assertEquals(expected, result);
     }
 
+
     /**
      * Edge-case: empty map */
     @Test
@@ -116,6 +121,7 @@ public class DataAnalyserTest {
 
         assertTrue(result.isEmpty());
     }
+
 
     /**
      * Edge-case: a day with no values (empty day) */
@@ -133,7 +139,7 @@ public class DataAnalyserTest {
     }
 
 
-    ///  QUESTION 3
+    //  QUESTION 3
     /**
      * Normal-case with more than 3 entries */
     @Test
@@ -160,6 +166,7 @@ public class DataAnalyserTest {
         assertEquals(expected, result);
     }
 
+
     /**
      * Edge-case: fewer than 3 entries
      * Should trigger IndexOutOfBounds exception */
@@ -177,7 +184,7 @@ public class DataAnalyserTest {
     }
 
 
-    /// QUESTION 4
+    // QUESTION 4
     /**
      * Normal-case: There are multiple 90-min windows
      * The optimal window is in the middle of entries
@@ -204,6 +211,7 @@ public class DataAnalyserTest {
         assertEquals(expected, result);
     }
 
+
     /** Edge-case: less than 3 entries */
     @Test
     void testFindQuietestNinetyMinPeriod_2() {
@@ -216,11 +224,6 @@ public class DataAnalyserTest {
         // Should return an empty list
         assertTrue(result.isEmpty());
     }
-
-
-
-
-
 
 
 }
